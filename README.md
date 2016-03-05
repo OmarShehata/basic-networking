@@ -23,6 +23,6 @@ $ node basic_networking.js
 
 It uses [Socket.io](http://socket.io/) as the networking library.
 
-The server code is in basic_networking.js. All it does is start accepting connections, and whenever it recieves a "new-click" event, it sends it to everyone else who's connected.
+The server code is in **basic_networking.js**. All it does is start accepting connections, and whenever it recieves a "new-click" event, it sends it to everyone else who's connected.
 
-The client code is in index.html. All it does is wait to recieve a "new-click" event. When it does, it draws the ball there. When you click, it sends a server a "new-click" event with the x and y of that click.
+The client code is in **index.html**. All it does is wait to recieve a "new-click" event. When it does, it draws the ball there. When you click, it sends a server a "new-click" event with the x and y of that click.
