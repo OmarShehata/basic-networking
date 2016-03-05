@@ -24,7 +24,7 @@ app.get('/', function(req, res){
 });
 
 
-//If you're running locally, you can now open localhost:2095 in a web browser and see it running!
-http.listen(2000, function(){
-  console.log('listening on *:2095');
+//If you're running locally, you can now open localhost:8080 in a web browser and see it running!
+http.listen(8080, function(){
+  console.log('listening on *:8080');
 });
