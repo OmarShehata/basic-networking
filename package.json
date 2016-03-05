@@ -1,0 +1,9 @@
+{
+  "name": "basic-networking",
+  "version": "0.0.1",
+  "description": "Basic setup for networking experiments!",
+  "dependencies": {
+    "express": "^4.10.2",
+    "socket.io": "^1.4.4"
+  }
+}

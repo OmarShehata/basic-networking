@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Networking Example</title>
+    <style>
+    /* We want our scene to span the entire window */
+    body {
+        margin: 0px;
+        overflow: hidden;
+      }
+ 
+  </style>
+  </head>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+  <body>
+  <canvas id="canvas" width="800" height="600"></canvas>
+
+  <script type="text/javascript">
+
+    //Get mouse coordinates when click in canvas
+    function getMousePos(evt) {
+      var canvas = $('#canvas')[0];
+      //Obtained from http://www.html5canvastutorials.com/advanced/html5-canvas-mouse-coordinates/
+      var rect = canvas.getBoundingClientRect();
+        return {
+          x: evt.clientX - rect.left,
+          y: evt.clientY - rect.top
+        };
+      }
+
+    var MouseDown = false;
+    $('#canvas')[0].addEventListener('mousedown',function(evt){
+      MouseDown = true;
+    })
+    $('#canvas')[0].addEventListener('mouseup',function(evt){
+      MouseDown = false;
+    })
+
+    //Detect mouse clicks on canvas
+    $('#canvas')[0].addEventListener('mousemove',function(evt){
+      console.log(MouseDown)
+      if(!MouseDown) return;
+      var mouse = getMousePos(evt);
+      //Tell the server someone has clicked!
+      socket.emit('new-click', JSON.stringify({x:mouse.x,y:mouse.y}));
+    })
+    
+    //Get the circle position from the server
+    var socket = io();
+    socket.on('new-click', function(msg){//Someone has clicked! Draw the circle in that new position
+      clickData = JSON.parse(msg);//We get messages from the server as JSON strings. So we need to parse it before we can use it
+      Draw(clickData.x,clickData.y)
+    });  
+
+    //Clear all and draw a circle
+    function Draw(x,y){
+      var width =  $("#canvas").width();
+      var height = $("#canvas").height();
+      var ctx = $('#canvas')[0].getContext("2d");
+      //Clear screen
+      ctx.clearRect(0, 0, width, height);
+
+      //Draw circle
+      ctx.fillStyle = "#FF0000";
+      ctx.beginPath();
+      ctx.arc(x,y, 10, 0, Math.PI*2, true); 
+      ctx.closePath();
+      ctx.fill();
+    }
+  </script>
+  
+  </body>
+</html>
